@@ -1,15 +1,44 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet"
+    />
     <link rel="stylesheet" href="style.css" />
     <title>To-Do List</title>
   </head>
   <body>
-    <header>
-      <h1>To-Do List</h1>
-    </header>
+    <main>
+      <form id="tasks-form">
+        <p class="welcome-msg">E aí, o que tem pra hoje?</p>
+        <div class="task-input-container">
+          <fieldset>
+            <legend class="visually-hidden">Tarefa</legend>
+            <label for="content" class="visually-hidden">Content</label>
+            <textarea
+              required
+              placeholder="Sua tarefa/nota vai aqui..."
+              name="content"
+              id="content"
+              rows="5"
+              maxlength="300"
+              autocomplete="off"
+            ></textarea>
+          </fieldset>
+          <div class="control-buttons">
+            <button type="submit">
+              <span class="material-icons">add</span>
+            </button>
+          </div>
+        </div>
+      </form>
+
+      <ul id="tasks-list"></ul>
+    </main>
+
     <script type="module" src="main.js"></script>
   </body>
 </html>
