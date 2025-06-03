@@ -26,15 +26,6 @@ Este projeto foi desenvolvido como um exercício prático para reforçar conheci
 * CSS3
 * JavaScript (ES6+)
 
-## 📁 Estrutura do Projeto
-
-```
-to-do-list/
-├── index.html
-├── style.css
-└── script.js
-```
-
 ## 📌 Como usar
 
 1. Clone o repositório:
