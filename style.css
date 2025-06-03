@@ -27,6 +27,7 @@ body {
   font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
     Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
   background-color: var(--color-green-light-bg);
+  caret-color: var(--color-primary-green);
 }
 
 ul {
@@ -81,7 +82,7 @@ main {
   margin: 100px auto 0 auto;
 }
 
-main form p.welcome-msg {
+main form h2.welcome-msg {
   margin-bottom: 1rem;
   font-size: 2rem;
   text-align: center;
@@ -92,7 +93,7 @@ main form .task-input-container {
   flex-direction: column;
   min-height: 11rem;
   border: 2px dashed var(--color-primary-green);
-  border-radius: 0.25rem;
+  border-radius: 1rem;
   background-color: var(--color-neutral-light);
 }
 
@@ -118,7 +119,7 @@ main #tasks-list li {
   flex-direction: column;
   min-height: 11rem;
   border: 1px solid var(--color-primary-green);
-  border-radius: 0.25rem;
+  border-radius: 1rem;
   background-color: var(--color-neutral-light);
 }
 
