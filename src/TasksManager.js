@@ -4,6 +4,16 @@ export class TasksManager {
     this.updateTasksHTML = updateTasksList
   }
 
+  getTask(id) {
+    return this.tasks.find((t) => t.id === id)
+  }
+
+  updateTask(id, content) {
+    this.getTask(id).content = content
+
+    this.updateTasksList()
+  }
+
   addTask(content) {
     this.tasks.push({
       id: this.generateTaskId(),

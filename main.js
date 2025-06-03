@@ -27,9 +27,7 @@ function updateTasksList(tasks) {
   tasksList.innerHTML = tasks.reduce((html, task) => {
     html += `
         <li data-id="${task.id}">
-            <div class="task-content" contenteditable="true">
-                <p>${task.content}</p>
-            </div>
+            <p class="task-content" contenteditable="true">${task.content}</p>
             <div class="control-buttons">
                 <button class="btn-delete" type="button">
                     <span class="material-icons">delete</span>
@@ -40,6 +38,10 @@ function updateTasksList(tasks) {
 
     return html
   }, '')
+
+  document.querySelectorAll('.task-content').forEach((taskContent) => {
+    taskContent.addEventListener('blur', handleTaskContentBlur)
+  })
 }
 
 function handleTasksListClicked(event) {
@@ -47,7 +49,25 @@ function handleTasksListClicked(event) {
   const btnDeleteClicked = eTarget.closest('.btn-delete')
 
   if (btnDeleteClicked) {
+    document.querySelectorAll('.task-content').forEach((taskContent) => {
+      taskContent.removeEventListener('blur', handleTaskContentBlur)
+    })
+
     const parentListItem = eTarget.closest('[data-id]')
     tasksManager.removeTask(parentListItem.dataset.id)
   }
+}
+
+function handleTaskContentBlur(event) {
+  const eTarget = event.target
+  const task = tasksManager.getTask(eTarget.closest('[data-id]').dataset.id)
+
+  if (eTarget.textContent === task.content) return
+
+  if (eTarget.textContent.trim() === '') {
+    eTarget.textContent = task.content
+    return
+  }
+
+  tasksManager.updateTask(id, eTarget.textContent)
 }
