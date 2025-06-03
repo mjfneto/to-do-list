@@ -1,7 +1,9 @@
 export class TasksManager {
   constructor(updateTasksList) {
-    this.tasks = []
+    this.tasks = JSON.parse(localStorage.getItem('tasks')) || []
     this.updateTasksHTML = updateTasksList
+
+    this.updateTasksList()
   }
 
   getTask(id) {
@@ -31,6 +33,7 @@ export class TasksManager {
 
   updateTasksList() {
     this.updateTasksHTML(this.tasks)
+    localStorage.setItem('tasks', JSON.stringify(this.tasks))
   }
 
   generateTaskId() {

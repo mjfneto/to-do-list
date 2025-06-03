@@ -60,7 +60,8 @@ function handleTasksListClicked(event) {
 
 function handleTaskContentBlur(event) {
   const eTarget = event.target
-  const task = tasksManager.getTask(eTarget.closest('[data-id]').dataset.id)
+  const id = eTarget.closest('[data-id]').dataset.id
+  const task = tasksManager.getTask(id)
 
   if (eTarget.textContent === task.content) return
 
