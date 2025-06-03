@@ -5,7 +5,11 @@ const tasksList = document.querySelector('#tasks-list')
 
 const tasksManager = new TasksManager(updateTasksList)
 
-tasksForm.addEventListener('submit', function (event) {
+tasksForm.addEventListener('submit', handleTasksFormSubmission)
+
+tasksList.addEventListener('click', handleTasksListClicked)
+
+function handleTasksFormSubmission(event) {
   event.preventDefault()
 
   const tasksFormData = new FormData(tasksForm)
@@ -17,13 +21,13 @@ tasksForm.addEventListener('submit', function (event) {
   tasksManager.addTask(content)
 
   tasksForm.querySelector('textarea').value = ''
-})
+}
 
 function updateTasksList(tasks) {
   tasksList.innerHTML = tasks.reduce((html, task) => {
     html += `
         <li data-id="${task.id}">
-            <div class="task-content">
+            <div class="task-content" contenteditable="true">
                 <p>${task.content}</p>
             </div>
             <div class="control-buttons">
@@ -36,18 +40,14 @@ function updateTasksList(tasks) {
 
     return html
   }, '')
-
-  document.querySelectorAll('.btn-delete').forEach(function (button) {
-    button.addEventListener('click', handleDeleteButtonClicked)
-  })
 }
 
-function handleDeleteButtonClicked() {
-  const parentListItem = this.closest('[data-id]')
+function handleTasksListClicked(event) {
+  const eTarget = event.target
+  const btnDeleteClicked = eTarget.closest('.btn-delete')
 
-  document.querySelectorAll('.btn-delete').forEach(function (button) {
-    button.removeEventListener('click', handleDeleteButtonClicked)
-  })
-
-  tasksManager.removeTask(parentListItem.dataset.id)
+  if (btnDeleteClicked) {
+    const parentListItem = eTarget.closest('[data-id]')
+    tasksManager.removeTask(parentListItem.dataset.id)
+  }
 }
