@@ -2,6 +2,9 @@ import { TasksManager } from './src/TasksManager.js'
 
 const tasksForm = document.querySelector('#tasks-form')
 const tasksList = document.querySelector('#tasks-list')
+const contentTextArea = document.querySelector('#content')
+
+const maxLength = parseFloat(contentTextArea.maxLength)
 
 const tasksManager = new TasksManager(updateTasksList)
 
@@ -41,6 +44,7 @@ function updateTasksList(tasks) {
 
   document.querySelectorAll('.task-content').forEach((taskContent) => {
     taskContent.addEventListener('blur', handleTaskContentBlur)
+    taskContent.addEventListener('beforeinput', handleTaskContentBeforeInput)
   })
 }
 
@@ -51,6 +55,10 @@ function handleTasksListClicked(event) {
   if (btnDeleteClicked) {
     document.querySelectorAll('.task-content').forEach((taskContent) => {
       taskContent.removeEventListener('blur', handleTaskContentBlur)
+      taskContent.removeEventListener(
+        'beforeinput',
+        handleTaskContentBeforeInput
+      )
     })
 
     const parentListItem = eTarget.closest('[data-id]')
@@ -71,4 +79,25 @@ function handleTaskContentBlur(event) {
   }
 
   tasksManager.updateTask(id, eTarget.textContent)
+}
+
+function handleTaskContentBeforeInput(event) {
+  const eTarget = event.target
+  const inputType = event.inputType
+  const textInsertions = new Set([
+    'insertText',
+    'insertFromPaste',
+    'insertFromDrop',
+    'insertFromYank',
+    'insertReplacementText',
+    'insertCompositionText',
+    'insertFromComposition',
+  ])
+
+  if (
+    textInsertions.has(inputType) &&
+    eTarget.textContent.length >= maxLength
+  ) {
+    event.preventDefault()
+  }
 }
